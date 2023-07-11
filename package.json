@@ -1,9 +1,9 @@
 {
-  "name": "gpt4-langchain-pdf-chatbot",
+  "name": "ARDChatBot",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "author": "Mayooear<twitter:@mayowaoshin>",
+  "author": "DhruvToshniwal",
   "type": "module",
   "scripts": {
     "dev": "next dev",
@@ -12,12 +12,15 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore \"**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write",
+    "mail": "next start pages/api/outlook",
     "ingest": "tsx -r dotenv/config scripts/ingest-data.ts"
   },
   "dependencies": {
     "@microsoft/fetch-event-source": "^2.0.1",
+    "@microsoft/microsoft-graph-client": "^3.0.5",
     "@pinecone-database/pinecone": "0.0.14",
     "@radix-ui/react-accordion": "^1.1.1",
+    "axios": "^1.4.0",
     "clsx": "^1.2.1",
     "dotenv": "^16.0.3",
     "langchain": "0.0.82",
