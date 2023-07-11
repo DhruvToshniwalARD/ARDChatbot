@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next dev",
     "type-check": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore \"**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write",
@@ -29,6 +29,7 @@
     "pdf-parse": "1.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-helmet": "^6.1.0",
     "react-markdown": "^8.0.5",
     "tailwind-merge": "^1.10.0"
   },
