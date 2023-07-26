@@ -25,7 +25,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, what would you like to learn about this document?',
+        message: 'Welcome to Orbit Research! How may I assist you?',
         type: 'apiMessage',
       },
     ],
@@ -220,8 +220,8 @@ export default function Home() {
                     name="userInput"
                     placeholder={
                       loading
-                        ? 'Waiting for response...'
-                        : 'What is this legal case about?'
+                        ? 'Formulating response..'
+                        : 'What is a Graphiti?'
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
