@@ -12,12 +12,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return;
   }
 
-  // try {
-  //   const client = Client.init({
-  //     authProvider: (done) => {
-  //       done(null, YOUR_TOKEN); // pass the token
-  //     },
-  //   });
+  try {
+    const client = Client.init({
+      authProvider: (done) => {
+        done(null, YOUR_TOKEN); // pass the token
+      },
+    });
 
     // Get the 10 latest messages
     const messages = await client.api('/me/mailfolders/inbox/messages').filter('isRead eq false').top(10).get();
