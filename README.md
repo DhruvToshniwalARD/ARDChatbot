@@ -1,77 +1,88 @@
-1. Clone the repo or download the ZIP
+Here is the full README.md file:
+
+```markdown
+# My Project
+
+This project is a chatbot powered by LangChain, Pinecone, and OpenAI. It allows you to search through PDF documents using natural language queries. 
+
+## Setup
+
+### Clone the repo
 
 ```
-git clone [github https url]
+git clone <github url>
 ```
 
-2. Install packages
-
-First run `npm install yarn -g` to install yarn globally (if you haven't already).
-
-Then run:
+### Install dependencies
 
 ```
-yarn install
+npm install
+npm install yarn -g
+yarn install 
 ```
 
-After installation, you should now see a `node_modules` folder.
+After installation, you should see a `node_modules` folder.
 
-3. Set up your `.env` file
+### Set up environment variables 
 
-- Copy `.env.example` into `.env`
-  Your `.env` file should look like this:
+Copy `.env.example` to `.env` and add your API keys:
 
 ```
 OPENAI_API_KEY=
-
 PINECONE_API_KEY=
-PINECONE_ENVIRONMENT=
-
+PINECONE_ENVIRONMENT=  
 PINECONE_INDEX_NAME=
-
 ```
 
-- Visit [openai](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key) to retrieve API keys and insert into your `.env` file.
-- Visit [pinecone](https://pinecone.io/) to create and retrieve your API keys, and also retrieve your environment and index name from the dashboard.
+Visit [openai](https://openai.com) to retrieve API keys and insert into your `.env` file.
 
-4. In the `config` folder, replace the `PINECONE_NAME_SPACE` with a `namespace` where you'd like to store your embeddings on Pinecone when you run `npm run ingest`. This namespace will later be used for queries and retrieval.
+Visit [pinecone](https://www.pinecone.io/) to create and retrieve your API keys, environment, and index name from the dashboard.
 
-5. In `utils/makechain.ts` chain change the `QA_PROMPT` for your own usecase. Change `modelName` in `new OpenAI` to `gpt-4`, if you have access to `gpt-4` api. Please verify outside this repo that you have access to `gpt-4` api, otherwise the application will not work.
+In `config/pinecone.ts`, replace `PINECONE_NAMESPACE` with your desired namespace. This will be used later for queries and retrieval.
 
-## Convert your PDF files to embeddings
+In `utils/makechain.ts` chain, update `QA_PROMPT` for your own use case. 
 
-**This repo can load multiple PDF files**
+### Add PDFs
 
-1. Inside `docs` folder, add your pdf files or folders that contain pdf files.
+This repo can load multiple PDF files. 
 
-2. Run the script `npm run ingest` to 'ingest' and embed your docs. If you run into errors troubleshoot below.
+Inside `docs/` folder, add your pdf files or folders containing pdfs.
 
-3. Check Pinecone dashboard to verify your namespace and vectors have been added.
+Run `npm run ingest` to 'ingest' and embed your docs. 
 
-## Run the app
+Check Pinecone dashboard to verify your namespace and vectors have been added.
 
-Once you've verified that the embeddings and content have been successfully added to your Pinecone, you can run the app `npm run dev` to launch the local dev environment, and then type a question in the chat interface.
+### Start the app
+
+Once you've verified successful ingestion, you can run:
+
+```
+npm run dev
+```
+
+to launch the local dev environment. 
+
+You can now ask questions in the chat interface.
 
 ## Troubleshooting
 
-In general, keep an eye out in the `issues` and `discussions` section of this repo for solutions.
+- Make sure API keys are valid
+- Try different PDFs
+- Check Pinecone dashboard for successful ingestion  
+- Match env variables and config
+- Use latest versions of dependencies
+- Check OpenAI credits
+- Log env variables to check values
+- Use same Pinecone and LangChain versions as repo
+- Check OpenAI model access matches config
 
-**General errors**
+## Exposing locally 
 
-- Make sure you're running the latest Node version. Run `node -v`
-- Try a different PDF or convert your PDF to text first. It's possible your PDF is corrupted, scanned, or requires OCR to convert to text.
-- `Console.log` the `env` variables and make sure they are exposed.
-- Make sure you're using the same versions of LangChain and Pinecone as this repo.
-- Check that you've created an `.env` file that contains your valid (and working) API keys, environment and index name.
-- If you change `modelName` in `OpenAI`, make sure you have access to the api for the appropriate model.
-- Make sure you have enough OpenAI credits and a valid card on your billings account.
-- Check that you don't have multiple OPENAPI keys in your global environment. If you do, the local `env` file from the project will be overwritten by systems `env` variable.
-- Try to hard code your API keys into the `process.env` variables if there are still issues.
+To expose localhost publicly:
 
-**Pinecone errors**
+```
+ngrok http --domain=https://<subdomain>.ngrok.io 8080 
+```
 
-- Make sure your pinecone dashboard `environment` and `index` matches the one in the `pinecone.ts` and `.env` files.
-- Check that you've set the vector dimensions to `1536`.
-- Make sure your pinecone namespace is in lowercase.
-- Pinecone indexes of users on the Starter(free) plan are deleted after 7 days of inactivity. To prevent this, send an API request to Pinecone to reset the counter before 7 days.
-- Retry from scratch with a new Pinecone project, index, and cloned repo.
+Use the credentials for your [ngrok](https://ngrok.com) account or the free tier.
+```
