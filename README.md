@@ -66,4 +66,4 @@ Install ngrok - https://ngrok.com/download
 Use the credentials for the ngrok account or the free one will work for 2 hours.
 
 After running npm run dev, use this command to expose localhost to the internet.
-ngrok http --domain=https://orbitresearch.ngrok.dev/ 8080
+ngrok http --domain=orbitresearch.ngrok.dev 3000
