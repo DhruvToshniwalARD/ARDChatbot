@@ -40,6 +40,8 @@ Check Pinecone dashboard to verify your namespace and vectors have been added.
 Run the app
 Once you've verified that the embeddings and content have been successfully added to your Pinecone, you can run the app npm run dev to launch the local dev environment, and then type a question in the chat interface.
 
+System:![gpt-langchain-pdf](https://github.com/DhruvToshniwalARD/ARDChatbot/assets/135351921/d6e4d823-a5bc-485b-9301-24da5af4decb)
+
 Troubleshooting
 In general, keep an eye out in the issues and discussions section of this repo for solutions.
 
