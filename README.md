@@ -8,9 +8,11 @@ This project is a chatbot powered by LangChain, Pinecone, and OpenAI. It allows 
 
 ```bash
 git clone <github url>
+```
 
 ### 2. Install Dependencies
 ```bash
 npm install
 npm install yarn -g
 yarn install 
+```
