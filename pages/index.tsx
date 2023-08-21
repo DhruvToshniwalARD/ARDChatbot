@@ -75,6 +75,7 @@ export default function Home() {
     //speakText(question);
     setLoading(true);
     setQuery('');
+
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
