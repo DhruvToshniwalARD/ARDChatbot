@@ -5,7 +5,6 @@ This project is a chatbot powered by LangChain, Pinecone, and OpenAI. It allows 
 ## 🚀 Setup
 
 Clone the repo or download the ZIP
-git clone [github https url]
 
 Install packages
 First run npm install yarn -g to install yarn globally (if you haven't already).
@@ -26,13 +25,11 @@ Visit openai to retrieve API keys and insert into your .env file.
 Visit pinecone to create and retrieve your API keys, and also retrieve your environment and index name from the dashboard.
 In the config folder, replace the PINECONE_NAME_SPACE with a namespace where you'd like to store your embeddings on Pinecone when you run npm run ingest. This namespace will later be used for queries and retrieval.
 
-In utils/makechain.ts chain change the QA_PROMPT for your own usecase. Change modelName in new OpenAI to gpt-4, if you have access to gpt-4 api. Please verify outside this repo that you have access to gpt-4 api, otherwise the application will not work.
+In utils/makechain.ts chain change the QA_PROMPT for your own usecase (NOT NEEDED). Change modelName in new OpenAI to gpt-4, if you have access to gpt-4 api (Not cost effective).
 
 Convert your PDF files to embeddings
 This repo can load multiple PDF files
-
 Inside docs folder, add your pdf files or folders that contain pdf files.
-
 Run the script npm run ingest to 'ingest' and embed your docs. If you run into errors troubleshoot below.
 
 Check Pinecone dashboard to verify your namespace and vectors have been added.
