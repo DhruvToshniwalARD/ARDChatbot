@@ -51,16 +51,16 @@ export default function Home() {
   //handle form submission
   async function handleSubmit(e: any) {
     e.preventDefault();
-
+  
     setError(null);
-
+  
     if (!query) {
       alert('Please input a question');
       return;
     }
-
+  
     const question = query.trim();
-
+  
     setMessageState((state) => ({
       ...state,
       messages: [
@@ -71,11 +71,10 @@ export default function Home() {
         },
       ],
     }));
-
-    //speakText(question);
+  
     setLoading(true);
     setQuery('');
-
+  
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -88,8 +87,7 @@ export default function Home() {
         }),
       });
       const data = await response.json();
-      console.log('data', data);
-
+  
       if (data.error) {
         setError(data.error);
       } else {
@@ -106,18 +104,22 @@ export default function Home() {
           history: [...state.history, [question, data.text]],
         }));
       }
-      //speakText(data.text);
-      console.log('messageState', messageState);
-
       setLoading(false);
-
+  
       //scroll to bottom
       messageListRef.current?.scrollTo(0, messageListRef.current.scrollHeight);
-      textAreaRef.current?.focus();
+  
+      // Set focus back to the textarea after processing message
+      setTimeout(() => {
+        textAreaRef.current?.focus();
+      }, 100);
+      console.log(document.activeElement === textAreaRef.current);
     } catch (error) {
       setLoading(false);
       setError('An error occurred while fetching the data. Please try again.');
-      console.log('error', error);
+      
+      // Also set focus back to the textarea if there's an error
+      textAreaRef.current?.focus();
     }
   }
 
@@ -133,51 +135,15 @@ export default function Home() {
     <Layout>
       <div className="mx-auto flex flex-col gap-4">
         <main className={styles.main}>
-          <div ref={messageListRef} className={styles.messagelist}>
-            {messages.map((message, index) => {
-              let className;
-              if (message.type === 'apiMessage') {
-                className = styles.apimessage;
-              } else {
-                className =
-                  loading && index === messages.length - 1
-                    ? styles.usermessagewaiting
-                    : styles.usermessage;
-              }
-              return (
-                <div key={`chatMessage-${index}`} className={className}>
-                  <ReactMarkdown linkTarget="_blank">
-                    {message.message}
-                  </ReactMarkdown>
-                  {message.sourceDocs && (
-                    <div key={`sourceDocsAccordion-${index}`} className="p-5">
-                      <Accordion type="single" collapsible className="flex-col">
-                        {message.sourceDocs.map((doc, docIndex) => (
-                          <AccordionItem
-                            key={`messageSourceDocs-${docIndex}`}
-                            value={`item-${docIndex}`}
-                          >
-                            <AccordionTrigger>
-                              <h3>Source {docIndex + 1}</h3>
-                            </AccordionTrigger>
-                            <AccordionContent>
-                              <ReactMarkdown linkTarget="_blank">
-                                {doc.pageContent}
-                              </ReactMarkdown>
-                              <p className="mt-2">
-                                <b>Source:</b> {doc.metadata.source}
-                              </p>
-                            </AccordionContent>
-                          </AccordionItem>
-                        ))}
-                      </Accordion>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+          
+          {/* Display for JAWS accessibility */}
+          <div aria-live="polite">
+            {messages.map((msg, index) => (
+              <p key={index}>
+                <strong>{msg.type === 'userMessage' ? 'Query' : 'Response'}:</strong> {msg.message}
+              </p>
+            ))}
           </div>
-
           <div className={styles.center}>
             <div className={styles.cloudform}>
               <form onSubmit={handleSubmit}>
@@ -188,7 +154,7 @@ export default function Home() {
                   disabled={loading}
                   onKeyDown={handleEnter}
                   ref={textAreaRef}
-                  autoFocus={false}
+                  autoFocus={true}
                   rows={1}
                   maxLength={512}
                   id="userInput"
@@ -226,7 +192,7 @@ export default function Home() {
               </form>
             </div>
           </div>
-
+  
           {error && (
             <div className="border border-red-400 rounded-md p-4">
               <p className="text-red-500">{error}</p>
@@ -235,5 +201,5 @@ export default function Home() {
         </main>
       </div>
     </Layout>
-  );
+  );  
 }
