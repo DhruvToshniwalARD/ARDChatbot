@@ -1,0 +1,6 @@
+These are the limitations of the chatbot
+
+1) Do not ingest too many documents together, for some reason it fails.
+2) Not accessibility friendly yet.
+3) To remove a document, you will need to delete the index and create a new one.
+4) npm run build does not work as it is not production ready.
